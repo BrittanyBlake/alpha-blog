@@ -1,0 +1,9 @@
+<div id="page-content">
+    <h1 class="text-center mt=4"> <%= @user.username%>'s profile </h1>
+
+    <%= gravatar_for @user, size: 200%>
+
+    <h1 class="text-center mt=4"> Articles</h1>
+    <%= render 'articles/article'%>
+
+</div>
