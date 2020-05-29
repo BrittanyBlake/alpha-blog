@@ -1,7 +1,11 @@
 <div id="page-content">
     <h1 class="text-center mt=4"> Alpha Bloggers </h1>
 
-    <div class="container">
+  <div class="apple_pagination">
+    <%= will_paginate @users, :container => false %>
+  </div>
+
+  <div class="container">
     <% @users.each do |user| %>
     <div class="row justify-content-md-center">
     <div class="col-8 mt-4">
@@ -24,7 +28,11 @@
       </div>
     </div>
     <% end %>
-</div>
+  </div>
+
+  <div class="apple_pagination mb-4">
+      <%= will_paginate @users, :container => false %>
+  </div>
 
 
 </div>
