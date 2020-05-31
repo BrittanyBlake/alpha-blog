@@ -42,13 +42,6 @@ class ArticlesController < ApplicationController
         redirect_to articles_path
     end
 
-    def require_same_user
-        if current_user != @article.user
-            flash[:alert] = "You must be logged in  as the ownder to perform this action"
-            redirect_to @article
-        end
-    end
-
     private
 
     def set_article
@@ -57,5 +50,12 @@ class ArticlesController < ApplicationController
 
     def article_params
         params.require(:article).permit(:title, :description)
+    end
+
+     def require_same_user
+        if current_user != @article.user
+            flash[:alert] = "You can only edit your own articles"
+            redirect_to @article
+        end
     end
 end
