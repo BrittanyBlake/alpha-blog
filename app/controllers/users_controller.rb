@@ -1,7 +1,7 @@
 class UsersController < ApplicationController 
-  before_action :set_user, only:[:show, :edit, :update]
-  before_action :require_user, except:[:edit, :update]
-  before_action :require_same_user, only:[:edit, :update]
+  before_action :set_user, only:[:show, :edit, :update, :destroy]
+  before_action :require_user, only:[:edit, :update]
+  before_action :require_same_user, only:[:edit, :update, :destroy]
 
   
 
@@ -17,6 +17,19 @@ class UsersController < ApplicationController
         @user = User.new
     end
 
+   def edit
+   end
+
+   def update  
+    if @user.update(user_params)
+        flash[:notice] = "Your account information was successfully updated!"
+        redirect_to @user
+    else
+        render 'edit'
+    end
+   end
+
+
    def create
      @user = User.new(user_params)
      if @user.save
@@ -28,16 +41,11 @@ class UsersController < ApplicationController
      end
    end
 
-   def edit
-   end
-
-   def update  
-    if @user.update(user_params)
-        flash[:notice] = "Your account information was successfully updated!"
-        redirect_to @user
-    else
-        render 'edit'
-    end
+   def destroy
+    @user.destroy
+    session[:user_id] = nil
+    flash[:notice] = "Your account and all your artciles have been successfully deleted"
+    redirect_to root_path
    end
 
    private
