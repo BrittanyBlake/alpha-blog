@@ -3,10 +3,18 @@
 
     <%= gravatar_for @user, size: 200%>
 
-    <% if logged_in? && @user == current_user%>
-      <div class="text-center mt-4">
-          <%= link_to 'Edit your profile', edit_user_path(@user), class:"btn btn-outline-info" %>
-      </div>   
+    <% if logged_in? %> 
+      <% if @user == current_user%>
+        <div class="text-center mt-4">
+            <%= link_to 'Edit your profile', edit_user_path(@user), class:"btn btn-outline-info" %>
+        </div>   
+      <% end %>
+      <% if current_user.admin?%>
+        <div class="text-center mt-4">
+            <%= link_to 'Delete this profile', user_path(@user), method: :delete, class:"btn btn-outline-danger",
+                data: {confirm: "Are you sure you want to delete this profile"} %>
+        </div>   
+      <% end %>
     <% end %>
 
     <h1 class="text-center mt=4"> Articles</h1>
